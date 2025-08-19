@@ -7,6 +7,30 @@
 <p><b>Frequency count for IT department:</b>13</p>
 <img src="department_histogram.png" alt="Department Histogram" style="max-width:500px;">
 <h3>Source Code</h3>
-<pre><code><the same script as above></code></pre>
-</body>
+<pre><code>
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from io import StringIO
+
+# Load data
+data = '''employee_id,department,region,performance_score,years_experience,satisfaction_rating
+EMP001,Marketing,Africa,71.85,3,4
+EMP002,Sales,Middle East,73.38,14,3.9
+EMP003,HR,Latin America,63.94,2,3.7
+EMP004,IT,Middle East,81.69,12,3.1
+EMP005,Operations,Africa,76,6,3.5
+'''
+df = pd.read_csv(StringIO(data))
+
+# Frequency count
+it_count = (df['department'] == 'IT').sum()
+print('Frequency count for IT department:', it_count)
+
+# Histogram
+plt.figure(figsize=(6, 6))
+sns.countplot(data=df, x='department', hue='department', palette='Set2', edgecolor='black', legend=False)
+plt.title('Distribution of Departments')
+plt.savefig('department_histogram.png', dpi=100)
+</code></pre></body>
 </html>
